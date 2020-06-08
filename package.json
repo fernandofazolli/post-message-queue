@@ -1,0 +1,50 @@
+{
+	"name": "post-message-queue",
+	"displayName": "activemq-post",
+	"description": "post message",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.45.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:post-message-queue.postMessage"
+	],
+	"main": "./extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "post-message-queue.postMessage",
+				"title": "Post Message on queue"
+			}
+		],
+		"keybindings": [
+            {
+                "command": "post-message-queue.postMessage",
+                "key": "ctrl+shift+q",
+                "mac": "shift+cmd+f"
+            }
+        ]
+	},
+	"scripts": {
+		"lint": "eslint .",
+		"pretest": "npm run lint",
+		"test": "node ./test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.45.0",
+		"@types/glob": "^7.1.1",
+		"@types/mocha": "^7.0.2",
+		"@types/node": "^13.11.0",
+		"eslint": "^6.8.0",
+		"glob": "^7.1.6",
+		"mocha": "^7.1.2",
+		"typescript": "^3.8.3",
+		"vscode-test": "^1.3.0"
+	},
+	"dependencies": {
+		"axios": "^0.19.2"
+	}
+}
