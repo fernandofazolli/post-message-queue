@@ -2,7 +2,9 @@
 	"name": "post-message-queue",
 	"displayName": "activemq-post",
 	"description": "post message",
+	"publisher": "fernandofazolli",
 	"version": "0.0.1",
+	"repository": {"url": "https://github.com/fernandofazolli/post-message-queue"},
 	"engines": {
 		"vscode": "^1.45.0"
 	},
