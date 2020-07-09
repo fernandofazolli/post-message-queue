@@ -27,7 +27,7 @@
                 "command": "post-message-queue.postMessage",
                 "key": "ctrl+shift+q",
                 "mac": "shift+cmd+f"
-            }
+			}
         ]
 	},
 	"scripts": {

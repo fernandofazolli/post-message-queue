@@ -1,37 +1,28 @@
 const vscode = require('vscode');
 const { default: axios } = require('axios');
+const path = require('path');
+
 
 var config = {
-    headers: {
-        'Content-Length': 0,
-        'Content-Type': 'text/plain'
-    }
+	headers: {
+		'Content-Length': 0,
+		'Content-Type': 'text/plain'
+	}
 };
-/**
- * @param {vscode.ExtensionContext} context
- */
+
 function activate(context) {
-	
+
 	console.log('Congratulations, your extension "post-message-queue" is now active!');
 
-	let disposable = vscode.commands.registerCommand('post-message-queue.postMessage',async function() {
-	let message = messageToSend();
+	let disposable = vscode.commands.registerCommand('post-message-queue.postMessage', async function () {
+		
+		let message = messageToSend();
 
-	for (let i = 0; i < message.length; i++) {
-		await sendToQueue(message[i])
-	}
-	  
-	//   Promise.all(message.map(info => sendToQueue(info))).then(results => {
-	// 	  console.log(results);
-	//   }).catch(err => {
-	// 	  console.log(err);
-	//   });
+		for (let i = 0; i < message.length; i++) {
+			await sendToQueue(message[i])
+		}
 
-
-	// message.forEach(async (item) => {	
-	// 	console.log(item); 
-	// 	await sendToQueue(item); 	
-	// 	});	
+		vscode.window.showInformationMessage('Activemq-Post [ ' + message.length + ' messages to ' + queueName() + ']');
 	});
 
 	context.subscriptions.push(disposable);
@@ -39,25 +30,29 @@ function activate(context) {
 exports.activate = activate;
 
 
-var  sendToQueue = (item) => {
+var sendToQueue = (item) => {
 	return axios.post(
-		'http://admin:admin@localhost:8161/api/message?destination=queue://'+ queueName(),
-		item, 
-		  config
-	  ).then(() => {			 
-		vscode.window.showInformationMessage('Activemq-Post [ ' + item+' ]');
+		'http://admin:admin@localhost:8161/api/message?destination=queue://' + queueName(),
+		item,
+		config
+	).then(() => {
+		//vscode.window.showInformationMessage('Activemq-Post [ ' + item + ' ]');
 		return
-	  })
-	  .catch((error) => {
+	}).catch((error) => {
 		console.error(error)
-		vscode.window.showErrorMessage('Activemq-Post Error [' + error + ']');
+		vscode.window.showErrorMessage('Activemq-Post Error [' + error + ' when send '+ item +']');
 		return
-	  })
+	})
 }
 
 var queueName = () => {
-	let fileName = vscode.window.activeTextEditor.document.fileName.split('/');
-	return fileName[fileName.length-1];
+	let customQueueName = vscode.window.activeTextEditor.document.getText().match("<==.*==>");
+	if(customQueueName) {
+		return customQueueName[0].replace("<==","").replace("==>","").trim();
+	} else {
+		let fileName = vscode.window.activeTextEditor.document.fileName.split(path.sep);
+		return fileName[fileName.length - 1];
+	}	
 }
 
 var messageToSend = () => {
@@ -65,7 +60,7 @@ var messageToSend = () => {
 }
 
 // this method is called when your extension is deactivated
-function deactivate() {}
+function deactivate() { }
 
 module.exports = {
 	activate,
