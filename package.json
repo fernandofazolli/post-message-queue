@@ -4,7 +4,9 @@
 	"description": "post message",
 	"publisher": "fernandofazolli",
 	"version": "0.0.1",
-	"repository": {"url": "https://github.com/fernandofazolli/post-message-queue"},
+	"repository": {
+		"url": "https://github.com/fernandofazolli/post-message-queue"
+	},
 	"engines": {
 		"vscode": "^1.45.0"
 	},
@@ -23,12 +25,12 @@
 			}
 		],
 		"keybindings": [
-            {
-                "command": "post-message-queue.postMessage",
-                "key": "ctrl+shift+q",
-                "mac": "shift+cmd+f"
+			{
+				"command": "post-message-queue.postMessage",
+				"key": "ctrl+shift+q",
+				"mac": "shift+cmd+f"
 			}
-        ]
+		]
 	},
 	"scripts": {
 		"lint": "eslint .",
