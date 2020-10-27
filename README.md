@@ -9,6 +9,7 @@ Atalho control + shift + q.
 ## Requirements
 
 Arquivo com o mesmo nome da fila destino.
+Ou usar <==NOME_FILA==>
 
 ## Extension Settings
 
